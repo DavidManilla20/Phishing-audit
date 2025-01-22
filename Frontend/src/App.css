@@ -1,0 +1,36 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+body {
+  margin: 0; /* Elimina el margen por defecto */
+  height: 100vh; /* Asegúrate de que el body ocupe toda la altura de la ventana */
+  background-image: url('./img/Myvirus.jpeg'); /* Cambia la ruta a tu imagen */
+  background-size: cover; /* Ajusta la imagen para cubrir todo el contenedor */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50%; /* Asegúrate de que el contenedor ocupe toda la altura */
+  color: white; /* Cambia el color del texto si es necesario */
+}
