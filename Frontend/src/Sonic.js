@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import logo from './img/Ramson.jpeg'
+import logo from './img/Ramson.jpeg';
+import './App.css';
+
 function App() {
-    const [count, setCount] = useState(7);
-    const audioRef = useRef(null);
-    const audioEndRef = useRef(new Audio('./Virus-TLSD-detectado.mp3')); // Asegúrate de tener un archivo de sonido en la carpeta public
+    const [count, setCount] = useState(3);
+    const [buttonAnimation, setButtonAnimation] = useState(false);
+    const [loading, setLoading] = useState(false); // Nuevo estado para la línea de carga
+    const [progress, setProgress] = useState(0); // Estado para el progreso
+    const audioEndRef = useRef(new Audio('./Virus-TLSD-detectado.mp3'));
 
     useEffect(() => {
         if (count > 0) {
@@ -12,48 +16,57 @@ function App() {
             }, 1000);
             return () => clearInterval(timer);
         } else {
-            // Mostrar alerta cuando la cuenta regresiva llegue a cero
-            alert("INICIANDO PROCESO DE INCRIPTACIÓN");
-            handleCloseMessage(); // Reinicia la cuenta regresiva
+            // Activar la animación y mostrar la línea de carga cuando la cuenta regresiva llegue a cero
+            setButtonAnimation(true);
+            setLoading(true); // Mostrar la línea de carga
+            startLoading(); // Iniciar el progreso de carga
         }
     }, [count]);
 
-    const handleCloseMessage = () => {
-        audioEndRef.current.play(); // play a sonido
-        setCount(7); //reinicia la cuenta regresiva para volver a mandarl el mensaje
-    };
-
-    const handleMouseEnter = () => {
-        const audioElement = audioRef.current;
-        if (audioElement) {
-            audioElement.play().catch(error => {
-                console.error("Error al intentar reproducir el audio:", error);
+    const startLoading = () => {
+        setProgress(0); // Reiniciar el progreso
+        const loadingInterval = setInterval(() => {
+            setProgress(prevProgress => {
+                if (prevProgress >= 70) {
+                    clearInterval(loadingInterval); // Detener el intervalo al llegar al 100%
+                    return 70;
+                }
+                return prevProgress + 5; // Incrementar el progreso
             });
-        }
+        }, 3000); 
     };
 
-    const handleMouseLeave = () => {
-        const audioElement = audioRef.current;
-        if (audioElement) {
-            audioElement.pause();
-            audioElement.currentTime = 0; // Reiniciar el audio al inicio
-        }
+    const handleCloseMessage = () => {
+        audioEndRef.current.play();
+        setCount(3);
+        setButtonAnimation(false); // Reiniciar la animación
+        setLoading(false); // Ocultar la línea de carga
+        setProgress(0); // Reiniciar el progreso
     };
 
     return (
         <div>
-        <audio ref={audioRef}>
-            <source src="./sonfonic.mp3" type="audio/mp3" />
-        </audio>
-        <h2>ENCRIPTACION ARCHIVOS EN: {count}</h2>
-        <img 
-            src={logo} 
-            alt="Ramson" 
-            className="App-logo" 
-            onMouseEnter={handleMouseEnter} 
-            onMouseLeave={handleMouseLeave} 
-        />
-    </div>
+            {loading && (
+                <div className="loading-container">
+                    <h3>Proceso de encriptación iniciado</h3>
+                    <div className="loading-line"></div>
+                    <h4>{progress}%</h4> {/* Mostrar el progreso */}
+                </div>
+            )}
+            <h2>ENCRIPTACION ARCHIVOS EN: {count}</h2>
+            <button 
+                className={`alert-button ${buttonAnimation ? 'zoom' : ''}`} 
+                onClick={handleCloseMessage}
+            >
+                CANCELAR ENCRIPTACIÓN
+            </button><br />
+            <img 
+                src={logo} 
+                alt="Ramson" 
+                className="App-logo" 
+            />
+        </div>
     );
 }
+
 export default App;
