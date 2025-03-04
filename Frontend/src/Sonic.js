@@ -27,9 +27,9 @@ function App() {
         setProgress(0); // Reiniciar el progreso
         const loadingInterval = setInterval(() => {
             setProgress(prevProgress => {
-                if (prevProgress >= 70) {
+                if (prevProgress >= 95) {
                     clearInterval(loadingInterval); // Detener el intervalo al llegar al 100%
-                    return 70;
+                    return 95;
                 }
                 return prevProgress + 5; // Incrementar el progreso
             });
@@ -38,35 +38,39 @@ function App() {
 
     const handleCloseMessage = () => {
         audioEndRef.current.play();
-        setCount(3);
-        setButtonAnimation(false); // Reiniciar la animación
-        setLoading(false); // Ocultar la línea de carga
-        setProgress(0); // Reiniciar el progreso
+
     };
 
     return (
         <div>
-            {loading && (
-                <div className="loading-container">
-                    <h3>Proceso de encriptación iniciado</h3>
-                    <div className="loading-line"></div>
-                    <h4>{progress}%</h4> {/* Mostrar el progreso */}
-                </div>
-            )}
+        {/* Mostrar el texto solo cuando el contador sea mayor que 0 */}
+        {count > 0 && (
             <h2>ENCRIPTACION ARCHIVOS EN: {count}</h2>
+        )}
+        {loading && (
+            <div className="loading-container">
+                <h3>Proceso de encriptación iniciado</h3>
+                <div className="loading-line"></div>
+                <h4>{progress}%</h4> {/* Mostrar el progreso */}
+            </div>
+        )}
+        {/* Mostrar el botón solo cuando el contador llegue a cero */}
+        {count === 0 && (
             <button 
                 className={`alert-button ${buttonAnimation ? 'zoom' : ''}`} 
                 onClick={handleCloseMessage}
             >
                 CANCELAR ENCRIPTACIÓN
-            </button><br />
-            <img 
-                src={logo} 
-                alt="Ramson" 
-                className="App-logo" 
-            />
-        </div>
-    );
+            </button>
+        )}
+        <br />
+        <img 
+            src={logo} 
+            alt="Ramson" 
+            className="App-logo" 
+        />
+    </div>
+);
 }
 
 export default App;
