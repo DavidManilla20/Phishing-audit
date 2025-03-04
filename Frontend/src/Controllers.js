@@ -5,7 +5,7 @@ const LigaComponent = () => {
     useEffect(() => {
         const fetchLiga = async () => {
             try {
-                const response = await axios.get('/auditoria');
+                const response = await axios.get('/');
                 console.log(response.data);
             } catch (error) {
                 console.error('Error fetching liga:', error);
