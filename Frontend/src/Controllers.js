@@ -6,7 +6,7 @@ const LigaComponent = () => {
         const fetchLiga = async () => {
             try {
                 // Cambia la URL a la ruta correcta de tu API
-                const response = await axios.get('https://phishing-audit.onrender.com/api/liga'); // Asegúrate de que esta ruta sea correcta
+                const response = await axios.get('https://phishing-audit.onrender.com'); // Asegúrate de que esta ruta sea correcta
                 console.log(response.data);
             } catch (error) {
                 if (error.response) {
