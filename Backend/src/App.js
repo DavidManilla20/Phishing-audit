@@ -29,7 +29,7 @@ app.use((req, res, next) => {
     
     next();
 });
-app.get('https://phishing-audit.onrender.com/', (req, res) => {
+app.get('/', (req, res) => {
     res.send('Bienvenido a la Liga');
 });
 
