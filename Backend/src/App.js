@@ -53,7 +53,7 @@ app.use((req, res, next) => {
 });
 */
 // Ruta principal
-app.get('/', (req, res) => {
+app.get('https://phishing-audit.onrender.com/', (req, res) => {
     res.send('Bienvenido a la Liga');
 });
 
