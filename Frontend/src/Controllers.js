@@ -5,7 +5,7 @@ const LigaComponent = () => {
     useEffect(() => {
         const fetchLiga = async () => {
             try {
-                const response = await axios.get('/');
+                const response = await axios.get('https://phishing-audit.onrender.com/');
                 console.log(response.data);
             } catch (error) {
                 console.error('Error fetching liga:', error);
