@@ -29,30 +29,6 @@ app.use((req, res, next) => {
     
     next();
 });
-/*
-// Registrar la fecha, hora, IP de acceso y hostname
-app.use((req, res, next) => {
-    // Captura la IP del usuario
-    const userIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-
-    // Obtiene el hostname
-    const hostname = req.hostname;
-
-    // Obtiene la fecha y hora actual en la zona horaria de Ciudad de México
-    const timeZone = 'America/Mexico_City';
-    const formattedDate = formatInTimeZone(new Date(), timeZone, 'dd/MMM/yyyy:HH:mm:ss OOOO');
-
-    // Crea la entrada de registro incluyendo el hostname
-    const logEntry = `${userIp} - - [${formattedDate}] "${req.method} ${req.url}" Hostname: ${hostname}\n`;
-    
-    fs.appendFile('access.log', logEntry, (err) => {
-        if (err) console.error('Error writing to log file', err);
-    });
-    
-    next();
-});
-*/
-// Ruta principal
 app.get('https://phishing-audit.onrender.com/', (req, res) => {
     res.send('Bienvenido a la Liga');
 });
